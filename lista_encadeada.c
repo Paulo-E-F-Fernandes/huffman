@@ -1,4 +1,5 @@
 #include <stdlib.h> // NULL
+#include <stdio.h> // printf
 #include "lista_encadeada.h"
 
 void inserir(lista **lista_enc, char simbolo)
@@ -130,4 +131,51 @@ void ordenar(lista **nodo_atual, lista **anterior)
 		free(lista_aux);
 		free(anterior_2);
 	}
+}
+
+void imprimir_nodos(nodo *raiz_huffman)
+{
+	lista *raiz_lista;
+	lista *temp;
+	lista *aux;
+
+	raiz_lista = (lista *) malloc(sizeof(lista *));
+
+	raiz_lista->nodo = raiz_huffman;
+	raiz_lista->proximo = NULL;
+
+	aux = temp = raiz_lista;
+
+	while (temp != NULL)
+	{
+		if (temp->nodo->esquerda != NULL)
+		{
+			aux->proximo = (lista *) malloc(sizeof(lista *));
+			aux = aux->proximo;
+			aux->nodo = temp->nodo->esquerda;
+		}
+
+		if (temp->nodo->direita != NULL)
+		{
+			aux->proximo = (lista *) malloc(sizeof(lista *));
+			aux = aux->proximo;
+			aux->nodo = temp->nodo->direita;
+		}
+
+		temp = temp->proximo;
+	}
+
+	while (raiz_lista != NULL)
+	{
+		if (raiz_lista->nodo->simbolo == '\0')
+		{
+			printf("nodo pai - ");
+		}
+		printf("símbolo: %c, ", raiz_lista->nodo->simbolo);
+		printf("ascii: %d; ", raiz_lista->nodo->simbolo);
+		printf("frequência: %d\n", raiz_lista->nodo->frequencia);
+
+		raiz_lista = raiz_lista->proximo;
+	}
+
 }

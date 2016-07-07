@@ -86,9 +86,10 @@ void executar(char *arquivo_nome)
 	// Gera a árvore de huffman
 	gerar_arvore_huffman(&lista_enc);
 
+	imprimir_nodos(lista_enc->nodo);
 
 	// Só um teste para imprimir o primeiro nome. Preciso fazer a leitura de todos os nodos da árvore.
-	do
+/*	do
 	{
 		printf("\n   ***   \n");
 		printf("frequencia: %d - ", lista_enc->nodo->frequencia);
@@ -98,7 +99,7 @@ void executar(char *arquivo_nome)
 
 		lista_enc = lista_enc->proximo;
 	} while (lista_enc != NULL);
-
+*/
 	free(lista_enc);
 	fclose(arquivo);
 }
