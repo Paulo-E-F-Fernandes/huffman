@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "nodo.h"
 
+/*
 void inserir(nodo **lista, char simbolo)
 {
 	nodo *temp;
@@ -26,7 +27,7 @@ void inserir(nodo **lista, char simbolo)
 		 * Colocando o "aux->esquerda = (nodo *) malloc(sizeof(nodo *));" antes do "aux->esquerda = NULL;" não dá este problema.
 		 *
 		 * NÃO SEI PORQUÊ. Pelo que li é um problema do gcc do ubuntu.
-		 */
+		 * / *************
 		(*lista)->esquerda = (nodo *) malloc(sizeof(nodo *));
 		(*lista)->esquerda = NULL;
 	}
@@ -70,7 +71,7 @@ void inserir(nodo **lista, char simbolo)
 			 * Colocando o "aux->esquerda = (nodo *) malloc(sizeof(nodo *));" antes do "aux->esquerda = NULL;" não dá este problema.
 			 *
 			 * NÃO SEI PORQUÊ. Pelo que li é um problema do gcc do ubuntu.
-			 */
+			 * / *************
 			aux->esquerda = (nodo *) malloc(sizeof(nodo *));
 			aux->esquerda = NULL;
 /*
@@ -79,7 +80,7 @@ void inserir(nodo **lista, char simbolo)
 			printf("proximo: %p\n", aux->proximo);
 			printf("direita: %p\n", aux->direita);
 			printf("esquerda: %p\n\n", aux->esquerda);
-*/
+* / *************
 
 			*lista = aux;
 		}
@@ -120,7 +121,7 @@ void ordenar(nodo **nodo_atual, nodo **anterior)
 	free(aux);
 	free(anterior2);
 }
-*/
+* / *****************
 
 void ordenar(nodo **nodo_atual, nodo **anterior)
 {
@@ -166,7 +167,7 @@ void ordenar(nodo **nodo_atual, nodo **anterior)
 		anterior2 = NULL;
 		free(aux);
 		free(anterior2);
-*/	}
+* / *************	}
 }
 
 
@@ -181,7 +182,7 @@ nodo *extrair_min(nodo **raiz)
 
 	return temp;
 }
-
+*/
 /*
 void extrair_min(nodo **raiz, nodo **abc)
 {

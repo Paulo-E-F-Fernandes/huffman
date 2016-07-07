@@ -18,68 +18,65 @@ void abrir_arquivo(FILE **arquivo, char *arquivo_nome)
 	}
 }
 
-void contar_caracteres(FILE *arquivo, nodo **lista)
+void contar_caracteres(FILE *arquivo, lista **lista)
 {
-	int simbolo_atual;
+	int simbolo;
 
-	while ((simbolo_atual = fgetc(arquivo)) != EOF)
+	while ((simbolo = fgetc(arquivo)) != EOF)
 	{
-		inserir(lista, (char) simbolo_atual);
+		inserir(lista, (char) simbolo);
 	}
 }
 
-void gerar_arvore_huffman(nodo **raiz)
+void gerar_arvore_huffman(lista **lista_enc)
 {
-	nodo *z;
+	lista *lista_aux;
 
-	while ((*raiz)->proximo != NULL)
+	while ((*lista_enc)->proximo != NULL)
 	{
-		z = (nodo *) malloc(sizeof(nodo *));
+		lista_aux = (lista *) malloc(sizeof(lista *));
+		lista_aux->nodo = (nodo *) malloc(sizeof(nodo *));
+		lista_aux->nodo->esquerda = extrair_min(lista_enc);
+		lista_aux->nodo->direita = extrair_min(lista_enc);
 
-		z->esquerda = extrair_min(raiz);
-		z->direita = extrair_min(raiz);
-		//extrair_min(raiz, &z->esquerda);
-		//extrair_min(raiz, &z->direita);
-		z->frequencia = z->esquerda->frequencia + z->direita->frequencia;
-		z->proximo = *raiz;
-		*raiz = z;
+		lista_aux->nodo->frequencia = 0;
+		if (lista_aux->nodo->esquerda != NULL)
+		{
+			lista_aux->nodo->frequencia = lista_aux->nodo->esquerda->frequencia;
+		}
+		if (lista_aux->nodo->direita != NULL)
+		{
+			lista_aux->nodo->frequencia = lista_aux->nodo->frequencia + lista_aux->nodo->direita->frequencia;
+		}
 
-		//ordenar(&z, raiz);
+		lista_aux->proximo = *lista_enc;
+		*lista_enc = lista_aux;
+
+		ordenar(&lista_aux, lista_enc);
 	}
 }
 
 void executar(char *arquivo_nome)
 {
 	FILE *arquivo;
-	nodo *raiz;
+	lista *lista_enc;
 
 	abrir_arquivo(&arquivo, arquivo_nome);
-	contar_caracteres(arquivo, &raiz);
-	gerar_arvore_huffman(&raiz);
+	contar_caracteres(arquivo, &lista_enc);
+	gerar_arvore_huffman(&lista_enc);
 
 	do
 	{
 		printf("\n   ***   \n");
-		printf("raiz.frequencia: %d - ", raiz->frequencia);
-		printf("raiz.simbolo: %c\n", raiz->simbolo);
-		printf("raiz.proximo: %p\n", raiz->proximo);
-		printf("raiz->esquerda: %p\n", raiz->esquerda);
-		printf("raiz->esquerda->esquerda: %p\n", raiz->esquerda->esquerda);
-		printf("raiz->esquerda->direita: %p\n", raiz->esquerda->direita);
+		printf("frequencia: %d - ", lista_enc->nodo->frequencia);
+		printf("simbolo: %c\n", lista_enc->nodo->simbolo);
+		printf("direita: %p\n", lista_enc->nodo->direita);
+		printf("esquerda: %p\n", lista_enc->nodo->esquerda);
 
-		printf("raiz->direita: %p\n", raiz->direita);
-		printf("raiz->direita->esquerda: %p\n", raiz->direita->esquerda);
-		printf("raiz->direita->direita: %p\n", raiz->direita->direita);
+		lista_enc = lista_enc->proximo;
+	} while (lista_enc != NULL);
 
-		printf("raiz->direita->esquerda->frequencia: %d\n", raiz->direita->esquerda->frequencia);
-		printf("raiz->direita->direita->frequencia: %d\n", raiz->direita->direita->frequencia);
-
-		printf("RAIZ_1: %p\n", raiz);
-		raiz = raiz->proximo;
-		printf("RAIZ_2: %p\n", raiz);
-	} while (raiz != NULL);
-
-	free(raiz);
+	free(lista_enc);
 	// O "fclose(arquivo)" começou a dar "Segmentation fault (core dumped)", por isso está comentado.
-	//fclose(arquivo);
+	fclose(arquivo);
 }
