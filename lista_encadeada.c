@@ -165,17 +165,28 @@ void imprimir_nodos(nodo *raiz_huffman)
 		temp = temp->proximo;
 	}
 
-	while (raiz_lista != NULL)
+	temp = raiz_lista;
+	while (temp != NULL)
 	{
-		if (raiz_lista->nodo->simbolo == '\0')
+		if (temp->nodo->simbolo == '\0')
 		{
-			printf("nodo pai - ");
-		}
-		printf("símbolo: %c, ", raiz_lista->nodo->simbolo);
-		printf("ascii: %d; ", raiz_lista->nodo->simbolo);
-		printf("frequência: %d\n", raiz_lista->nodo->frequencia);
+			printf("NODO PAI - ");
+/*			if (temp->nodo->esquerda != NULL)
+			{
+				printf("%c", temp->nodo->esquerda->simbolo);
+			}
+			if (temp->nodo->direita != NULL)
+			{
+				printf("%c, ", temp->nodo->direita->simbolo);
+			}
+			printf("ascii: %d, ", temp->nodo->simbolo);
+			printf("frequência: %d\n", temp->nodo->frequencia);
+*/		}
 
-		raiz_lista = raiz_lista->proximo;
+		printf("símbolo: %c (ascii: %d), ", temp->nodo->simbolo, temp->nodo->simbolo);
+		printf("frequência: %d\n", temp->nodo->frequencia);
+
+		temp = temp->proximo;
 	}
 
 }

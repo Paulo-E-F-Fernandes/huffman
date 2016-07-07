@@ -91,18 +91,6 @@ void executar(char *arquivo_nome)
 
 	imprimir_nodos(lista_enc->nodo);
 
-	// Só um teste para imprimir o primeiro nome. Preciso fazer a leitura de todos os nodos da árvore.
-/*	do
-	{
-		printf("\n   ***   \n");
-		printf("frequencia: %d - ", lista_enc->nodo->frequencia);
-		printf("simbolo: %c\n", lista_enc->nodo->simbolo);
-		printf("direita: %p\n", lista_enc->nodo->direita);
-		printf("esquerda: %p\n", lista_enc->nodo->esquerda);
-
-		lista_enc = lista_enc->proximo;
-	} while (lista_enc != NULL);
-*/
 	free(lista_enc);
 	fclose(arquivo);
 }
