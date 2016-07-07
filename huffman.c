@@ -29,9 +29,12 @@ void contar_caracteres(FILE *arquivo, lista **lista)
 	// o fgets retorna o ascii do caracteres, por isso faço o cast para char quando vou inserir na lista encadeada
 	while ((simbolo = fgetc(arquivo)) != EOF)
 	{
-		// Insere na lista encadeada "lista" o caracter representado por simbolo de maneira ordenada pela frequência que
-		//  o caracter aparece.
-		inserir(lista, (char) simbolo);
+		if (simbolo != '\0' && simbolo != '\n')
+		{
+			// Insere na lista encadeada "lista" o caracter representado por simbolo de maneira ordenada pela frequência que
+			//  o caracter aparece.
+			inserir(lista, (char) simbolo);
+		}
 	}
 }
 
