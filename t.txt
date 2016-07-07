@@ -1,0 +1,5 @@
+raiz.frequencia: 1 - raiz.simbolo: 
+
+raiz.frequencia: 2 - raiz.simbolo: c
+raiz.frequencia: 2 - raiz.simbolo: g
+raiz.frequencia: 4 - raiz.simbolo: d
