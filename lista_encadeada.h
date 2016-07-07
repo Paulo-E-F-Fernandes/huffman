@@ -1,4 +1,13 @@
-#include "nodo.h"
+typedef struct nodo nodo;
+
+struct nodo
+{
+	int frequencia;
+	char simbolo;
+	char aresta;
+	nodo *direita;
+	nodo *esquerda;
+};
 
 typedef struct lista lista;
 

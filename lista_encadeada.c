@@ -8,16 +8,20 @@ void inserir(lista **lista_enc, char simbolo)
 	nodo *nodo_aux;
 	int adicionado = 0;
 
+	// Caso a lista encadeada esteja vazia ainda, a mesma é iniciada e o primeiro nodo criado é adicionada nela
 	if (*lista_enc == NULL)
 	{
 		nodo_aux = (nodo *) malloc(sizeof(nodo *));
+		// Como é o primeiro nodo da lista, a frequência é 1, já que não existe nenhum outro nodo.
 		nodo_aux->frequencia = 1;
 		nodo_aux->simbolo = simbolo;
 		nodo_aux->direita = NULL;
 		nodo_aux->esquerda = NULL;
 
 		*lista_enc = (lista *) malloc(sizeof(lista *));
+		// "nodo_aux" é o primeiro nodo de "*lista_enc"
 		(*lista_enc)->nodo = nodo_aux;
+		// como "*lista_enc" tem apenas um nodo, não existe próximo
 		(*lista_enc)->proximo = NULL;
 	}
 	else
@@ -27,22 +31,34 @@ void inserir(lista **lista_enc, char simbolo)
 		while (temp != NULL && adicionado == 0)
 		{
 			nodo_aux = temp->nodo;
+			// Caso tenha um nodo na lista encadeada com o símbolo atual
 			if (nodo_aux->simbolo == simbolo)
 			{
+				// incrementa a frequência do nodo
 				nodo_aux->frequencia = ++nodo_aux->frequencia;
+				// Caso o nodo que terá a frequência incrementada sejá o primeiro nodo da lista encadeada,
+				//  a "lista_ant" será NULL, então "lista_ant" será o próprio elemento da lista.
 				if (lista_ant == NULL)
 				{
 					lista_ant = *lista_enc;
 				}
-				ordenar(&temp, &lista_ant); // Ordenar os nodos para que os com menor frequência fiquem primeiro, para
-									        //  facilitar a criação da árvore de huffman
+				// Ordenar os nodos para que os nodos com menor frequência fiquem primeiro,
+				//  para facilitar a criação da árvore de huffman
+				ordenar(&temp, &lista_ant);
+
 				adicionado = 1;
 			}
-			lista_ant = temp; // Usando o aux para manter o nodo anterior do temp atual, já que tempo será o próximo dele na linha abaixo
-						      // Preciso disso para a ordenação
+			// Usando o lista_ant para manter o nodo anterior do temp atual, já que temp será
+			//  atualizado na linha abaixo. Isso é necessário preciso disso para a ordenação
+			lista_ant = temp;
+
 			temp = temp->proximo;
 		}
 
+		// como não existe nenhum nodo com o símbolo atual, "adicionado" será igual a 0,
+		//  então o nodo será criado com frequência igual a 1, pois não existe na lista
+		//  encadeada ainda, então é adicionado como primeiro nodo da lista encadeada,
+		//  assim já fica ordenado.
 		if (adicionado == 0)
 		{
 			nodo_aux = (nodo *) malloc(sizeof(nodo *));
@@ -64,16 +80,20 @@ void inserir(lista **lista_enc, char simbolo)
 	free(temp);
 }
 
+// Extrair o nodo de menor frequência da lista_encadeada
 nodo *extrair_min(lista **lista_enc)
 {
 	nodo *temp;
 
+	// Obter o primeiro nodo da lista encadeada
 	temp = (*lista_enc)->nodo;
+	// O primeiro elemento da lista encadeada é atualizado para o próximo elemento, o segundo elemento no caso
 	*lista_enc = (*lista_enc)->proximo;
 
 	return temp;
 }
 
+// Ordena o elemento "nodo_atual" na lista encadeada
 void ordenar(lista **nodo_atual, lista **anterior)
 {
 	lista *lista_aux;

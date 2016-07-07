@@ -1,14 +1,4 @@
-1. gcc -c nodo.c
-2. gcc -c lista_encadeada.c
-3. gcc -c huffman.c
-4. gcc nodo.o lista_encadeada.o huffman.o main.c -o main
-5. ./main <nome_do_arquivo>
-
-
-
-
-gcc -c lista_encadeada_simples.c
-
-gcc -c huffman.c
-gcc huffman.o main.c -o main
-
+1. gcc -c lista_encadeada.c
+2. gcc -c huffman.c
+3. gcc lista_encadeada.o huffman.o main.c -o main
+4. ./main <nome_do_arquivo>
